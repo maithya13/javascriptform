@@ -1,0 +1,45 @@
+// Switching between Login and Register Forms
+document.getElementById('showLogin').addEventListener('click', function () {
+    document.getElementById('registerForm').style.display = 'none';
+    document.getElementById('loginForm').style.display = 'block';
+});
+
+document.getElementById('showRegister').addEventListener('click', function () {
+    document.getElementById('registerForm').style.display = 'block';
+    document.getElementById('loginForm').style.display = 'none';
+});
+
+// Handling Registration
+document.getElementById('register').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById('regUsername').value;
+    const password = document.getElementById('regPassword').value;
+    const email = document.getElementById('regEmail').value;
+
+    if (username && password && email) {
+        localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+        localStorage.setItem('email', email);
+        document.getElementById('message').textContent = 'Registration Successful! Please login.';
+        document.getElementById('registerForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+    }
+});
+
+// Handling Login
+document.getElementById('login').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const loginUsername = document.getElementById('loginUsername').value;
+    const loginPassword = document.getElementById('loginPassword').value;
+
+    const storedUsername = localStorage.getItem('username');
+    const storedPassword = localStorage.getItem('password');
+
+    if (loginUsername === storedUsername && loginPassword === storedPassword) {
+        document.getElementById('message').textContent = 'Login Successful!';
+    } else {
+        document.getElementById('message').textContent = 'Invalid credentials. Try again.';
+    }
+});
